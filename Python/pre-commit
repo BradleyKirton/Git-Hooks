@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Find all staged Python files, and exit early if there aren't any.
 PYTHON_FILES=(`git diff --name-only --cached --diff-filter=AM | \
   grep --color=never '.py$'`)
@@ -9,7 +10,7 @@ fi
 # Verify that black is installed; if not, warn and exit.
 if [ -z $(which black) ]; then
   echo 'black not on path; can not format. Please install black:'
-  echo '    pip install black'
+  echo '    pip3 install black'
   exit 2
 fi
 
@@ -30,9 +31,8 @@ fi
 # Format all staged files, then exit with an error code if any have uncommitted
 # changes.
 echo 'Formatting staged Python files . . .'
-
 # formatting with black
-black .
+black . --include ${PYTHON_FILES[@]}
 
 
 CHANGED_FILES=(`git diff --name-only ${PYTHON_FILES[@]}`)
