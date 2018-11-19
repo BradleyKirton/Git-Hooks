@@ -32,7 +32,7 @@ fi
 # changes.
 echo 'Formatting staged Python files . . .'
 # formatting with black
-black . --include ${PYTHON_FILES[@]}
+black . --include ${PYTHON_FILES[@]} --exclude migrations/.*\.py
 
 
 CHANGED_FILES=(`git diff --name-only ${PYTHON_FILES[@]}`)
